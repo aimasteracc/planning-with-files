@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2026-01-17
+
+### Added
+
+- **Session Recovery Feature** (PR #33 by @lasmarois)
+  - Automatically detect and recover unsynced work from previous sessions after `/clear`
+  - New `scripts/session-catchup.py` analyzes previous session JSONL files
+  - Finds last planning file update and extracts conversation that happened after
+  - Recovery triggered automatically when invoking `/planning-with-files`
+  - Pure Python stdlib implementation, no external dependencies
+
+- **PreToolUse Hook Enhancement**
+  - Now triggers on Read/Glob/Grep in addition to Write/Edit/Bash
+  - Keeps task_plan.md in attention during research/exploration phases
+  - Better context management throughout workflow
+
+### Changed
+
+- SKILL.md restructured with session recovery as first instruction
+- Description updated to mention session recovery feature
+- README updated with session recovery workflow and instructions
+
+### Documentation
+
+- Added "Session Recovery" section to README
+- Documented optimal workflow for context window management
+- Instructions for disabling auto-compact in Claude Code settings
+
+### Thanks
+
+Special thanks to:
+- @lasmarois for session recovery implementation (PR #33)
+- Community members for testing and feedback
+
+---
+
 ## [2.2.0] - 2026-01-17
 
 ### Added
@@ -76,11 +112,6 @@ Special thanks to:
 - @mtuwei for reporting Windows compatibility issues (#32)
 - All community members who tested and provided feedback
 
-## [2.1.2] - 2026-01-11
-
-### Fixed
-
-- **Template Files Not Found in Cache** (Fixes #18)
   - Root cause: `${CLAUDE_PLUGIN_ROOT}` resolves to repo root, but templates were only in subfolders
   - Added `templates/` and `scripts/` directories at repo root level
   - Now templates are accessible regardless of how `CLAUDE_PLUGIN_ROOT` resolves

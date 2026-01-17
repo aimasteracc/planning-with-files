@@ -16,7 +16,7 @@ A Claude Code plugin that transforms your workflow to use persistent markdown fi
 [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://code.claude.com/docs/en/plugins)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-green)](https://code.claude.com/docs/en/skills)
 [![Cursor Rules](https://img.shields.io/badge/Cursor-Rules-purple)](https://docs.cursor.com/context/rules-for-ai)
-[![Version](https://img.shields.io/badge/version-2.2.0-brightgreen)](https://github.com/OthmanAdi/planning-with-files/releases)
+[![Version](https://img.shields.io/badge/version-2.2.1-brightgreen)](https://github.com/OthmanAdi/planning-with-files/releases)
 
 ## Quick Install
 
@@ -43,10 +43,10 @@ See [docs/installation.md](docs/installation.md) for all installation methods.
 
 | Version | Features | Install |
 |---------|----------|---------|
-| **v2.2.0** (current) | Kilo Code IDE support, Windows PowerShell support, OS-aware hooks | `/plugin install planning-with-files@planning-with-files` |
+| **v2.2.1** (current) | Session recovery after /clear, enhanced PreToolUse hook | `/plugin install planning-with-files@planning-with-files` |
+| **v2.2.0** | Kilo Code IDE support, Windows PowerShell support, OS-aware hooks | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
 | **v2.1.2** | Fix template cache issue (Issue #18) | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
-| **v2.1.1** | Fix plugin template paths | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
-| **v2.1.0** | Claude Code v2.1 compatible, SessionStart hook, PostToolUse hook, user-invocable | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
+| **v2.1.0** | Claude Code v2.1 compatible, PostToolUse hook, user-invocable | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
 | **v2.0.x** | Hooks, templates, scripts | See [releases](https://github.com/OthmanAdi/planning-with-files/releases) |
 | **v1.0.0** (legacy) | Core 3-file pattern | `git clone -b legacy` |
 
@@ -101,6 +101,45 @@ Once installed, Claude will automatically:
 Or invoke manually with `/planning-with-files`.
 
 See [docs/quickstart.md](docs/quickstart.md) for the full 5-step guide.
+
+## Session Recovery (NEW in v2.2.0)
+
+When your context window fills up and you run `/clear`, this skill automatically recovers unsynced work from your previous session.
+
+### Optimal Workflow
+
+For the best experience, we recommend:
+
+1. **Disable auto-compact** in Claude Code settings (use full context window)
+2. **Start a fresh session** in your project
+3. **Run `/planning-with-files`** when ready to work on a complex task
+4. **Work until context fills up** (Claude will warn you)
+5. **Run `/clear`** to start fresh
+6. **Run `/planning-with-files`** again — it will automatically recover where you left off
+
+### How Recovery Works
+
+When you invoke `/planning-with-files`, the skill:
+
+1. Checks for previous session data (stored in `~/.claude/projects/`)
+2. Finds the last time planning files were updated
+3. Extracts conversation that happened after (potentially lost context)
+4. Shows a catchup report so you can sync planning files
+
+This means even if context filled up before you could update your planning files, the skill will recover that context in your next session.
+
+### Disabling Auto-Compact
+
+To use the full context window without automatic compaction:
+
+```bash
+# In your Claude Code settings or .claude/settings.json
+{
+  "autoCompact": false
+}
+```
+
+This lets you maximize context usage before manually clearing with `/clear`.
 
 ## Key Rules
 

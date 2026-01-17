@@ -25,6 +25,13 @@ These amazing people have contributed code, documentation, or significant improv
   - Created workflow diagram showing task lifecycle
   - **Impact:** Dramatically improved beginner onboarding
 
+- **[@lasmarois](https://github.com/lasmarois)** - [PR #33](https://github.com/OthmanAdi/planning-with-files/pull/33)
+  - Created session recovery feature for context preservation after `/clear`
+  - Built `session-catchup.py` script to analyze previous session JSONL files
+  - Enhanced PreToolUse hook to include Read/Glob/Grep operations
+  - Restructured SKILL.md for better session recovery workflow
+  - **Impact:** Solves context loss problem, enables seamless work resumption
+
 - **[@aimasteracc](https://github.com/aimasteracc)** - [PR #30](https://github.com/OthmanAdi/planning-with-files/pull/30)
   - Added Kilocode IDE support and documentation
   - Created PowerShell scripts for Windows compatibility
